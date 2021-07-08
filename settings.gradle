@@ -1,0 +1,2 @@
+rootProject.name = "labUTC"
+include ':app'
