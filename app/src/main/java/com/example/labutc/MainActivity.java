@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.labutc.configuracion.config;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -28,9 +29,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtV1NavHeader, txtV2NavHeader;
     private ImageView imgViewNavHeader;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Traer los valores del bundle
         Intent intent = this.getIntent();
         Bundle valores = intent.getExtras();
 
