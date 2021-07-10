@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -57,7 +58,18 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        //La siguiente referencia al navController es utililizada dentro el control androidx.fragment.app.FragmentContainerView
+        //ubicado en el content_main normalmente se establece con fragment sin embargo para un mejor rendimiento se utiliza  el
+        //mencionado anteriormente.
+        //---------------------------------------------------
+        //Está línea de código funciona con el fragment normal
+        //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        //-----------------------------------------------------
+        //Con la nueva implementación.
+        //--------------------------
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_content_main);
+        NavController navController = navHostFragment.getNavController();
+        //----------------------------
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
