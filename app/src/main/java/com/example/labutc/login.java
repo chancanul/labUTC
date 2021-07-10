@@ -72,7 +72,7 @@ public class login extends AppCompatActivity {
                     Intent principal = new Intent(getApplicationContext(), MainActivity.class);
                     principal.putExtra("nombre", users.get(0).getNombre());
                     principal.putExtra("apellido_p", users.get(0).getApellido_p());
-                    principal.putExtra("imagen", users.get(0).getImagen());
+                   principal.putExtra("imagen", users.get(0).getImagen());
                     startActivity(principal);
                 } else {
                     backProgress.setVisibility(View.GONE);

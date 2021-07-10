@@ -1,6 +1,6 @@
-package com.example.labutc.ui.home;
 
-import android.content.Intent;
+package com.example.labutc.ui.usuario;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +19,6 @@ import com.example.labutc.MainActivity;
 import com.example.labutc.R;
 import com.example.labutc.adaptadores.adapterusuario;
 import com.example.labutc.configuracion.config;
-import com.example.labutc.databinding.ActivityMainBinding;
 import com.example.labutc.databinding.FragmentHomeBinding;
 import com.example.labutc.modelos.usuarios;
 import com.example.labutc.retrofit.interfaceRetrofit;
@@ -35,26 +33,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment {
+public class UsuarioFragment extends Fragment {
+    private UsuarioViewModel usuarioViewModel;
+    private FragmentHomeBinding binding;
 
     private RecyclerView myRecycler;
     private View myView;
     private adapterusuario myAdapter;
 
 
-    private HomeViewModel homeViewModel;
-    private FragmentHomeBinding binding;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        usuarioViewModel =
+                new ViewModelProvider(this).get(UsuarioViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        usuarioViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -62,6 +61,7 @@ public class HomeFragment extends Fragment {
         });
         return root;
     }
+
 
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -71,9 +71,9 @@ public class HomeFragment extends Fragment {
         myView = view;
         //Antes de manipular al mainActivituy debemos comprobar que no sea nulo.
         if (navigation != null) {
-         FloatingActionButton fab = navigation.findViewById(R.id.fab);
-          fab.setImageResource(R.drawable.guardar_usuario);
-       }
+            FloatingActionButton fabactionUser = navigation.findViewById(R.id.fab);
+            fabactionUser.setImageResource(R.drawable.guardar_usuario);
+        }
         getUsuarios();
     }
 
