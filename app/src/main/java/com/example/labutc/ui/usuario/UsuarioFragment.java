@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,6 +74,14 @@ public class UsuarioFragment extends Fragment {
         if (navigation != null) {
             FloatingActionButton fabactionUser = navigation.findViewById(R.id.fab);
             fabactionUser.setImageResource(R.drawable.guardar_usuario);
+            fabactionUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle valores = new Bundle();
+                    valores.putString("accion", "N");
+                    NavHostFragment.findNavController(getParentFragment()).navigate(R.id.detalleUsuarioFragment, valores);
+                }
+            });
         }
         getUsuarios();
     }
@@ -113,7 +122,37 @@ public class UsuarioFragment extends Fragment {
         myRecycler.setLayoutManager(new LinearLayoutManager(getContext())); //Agregando un contraintLayout al recicler
         myRecycler.setAdapter(myAdapter);//Volcar los datos al recycler
         //Generar la función clic del adaptador, implementado en el adaptador
+        myAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Bundle valores = new Bundle();
+               valores.putString("accion", "M");
+               valores.putString("id_usuario", listado.get(myRecycler.getChildLayoutPosition(v)).getId_usuario());
+               valores.putString("nombre", listado.get(myRecycler.getChildLayoutPosition(v)).getNombre());
+               valores.putString("apellido_p", listado.get(myRecycler.getChildLayoutPosition(v)).getApellido_p());
+               valores.putString("apellido_m", listado.get(myRecycler.getChildLayoutPosition(v)).getApellido_m());
+               valores.putString("usuario", listado.get(myRecycler.getChildLayoutPosition(v)).getUsuario());
+               valores.putString("password", listado.get(myRecycler.getChildLayoutPosition(v)).getPassword());
+               valores.putString("id_rol", listado.get(myRecycler.getChildLayoutPosition(v)).getId_rol());
+               valores.putString("imagen", listado.get(myRecycler.getChildLayoutPosition(v)).getImagen());
+               NavHostFragment.findNavController(getParentFragment()).navigate(R.id.detalleUsuarioFragment, valores);
+            }
+        });
 
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

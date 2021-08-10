@@ -23,6 +23,7 @@ public class adapterusuario extends RecyclerView.Adapter<adapterusuario.customVi
     Context contexto;
     List<usuarios> listado;
     private View myView;
+    private View.OnClickListener listener;
 
     public adapterusuario(Context contexto, List listado) {
         this.contexto = contexto;
@@ -52,10 +53,14 @@ public class adapterusuario extends RecyclerView.Adapter<adapterusuario.customVi
     public int getItemCount() {
         return listado.size();
     }
-
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
     @Override
     public void onClick(View v) {
-
+        if (listener != null) {
+            listener.onClick(v);
+        }
     }
     public class customViewHolder extends RecyclerView.ViewHolder {
         //Declarar los controles a utilizar
